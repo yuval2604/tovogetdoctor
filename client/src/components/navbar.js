@@ -6,19 +6,41 @@ class Navbar extends React.Component {
       document.querySelector(".loader-wrapper").style = "display: none";
     }, 2000);
   }
+
   render() {
+    var styleForNavBar = {
+      width: "100%",
+      marginright: "300px"
+    };
+    var styleHead = {
+      "font-size": "32px"
+    };
+
+    var imgSize = {
+      "margin-top": "0px",
+      width: "200px",
+      height: "150px"
+    };
+
     return (
-      <nav className="navbar navbar-expand-lg navbar-light theme-nav fixed-top">
-        <div id="navbar-main" className="container">
+      // <nav className="navbar navbar-expand-lg navbar-light theme-nav fixed-top">
+      <nav className="navbar navbar-expand-lg navbar-light theme-nav ">
+        <div id="navbar-main" className="container" style={styleForNavBar}>
           <a className="navbar-brand">
-            <h1>
+            <h1 style={styleHead}>
               Get<span className="f-bold"></span> Doct
-              <span className="f-bold">o</span>r
+              <span className="f-bold">o</span>r Barzilai
               <span className="f-bold f-color"></span>
             </h1>
+            {/* <img
+              style={imgSize}
+              src="assets/images/hebrew-logo.png"
+              className="img-fluid"
+              alt="mobile"
+            /> */}
             {/* <img src="assets/images/team3.png" alt="logo" /> */}
           </a>
-          <button
+          {/* <button
             className="navbar-toggler"
             type="button"
             data-toggle="collapse"
@@ -28,7 +50,7 @@ class Navbar extends React.Component {
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
-          </button>
+          </button> */}
           <div
             className="collapse navbar-collapse default-nav"
             id="navbarSupportedContent"

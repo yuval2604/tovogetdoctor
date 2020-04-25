@@ -7,7 +7,9 @@
     "start": "concurrently \"cd backend && node server.js\" \"cd client && npm start\""
   },
   "dependencies": {
-    "concurrently": "^4.0.1"
+    "concurrently": "^4.0.1",
+    "nodemailer": "^6.4.1",
+    "twilio": "^3.42.1"
   },
   "description": "steps to run the code",
   "author": ""

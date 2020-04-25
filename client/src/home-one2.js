@@ -23,11 +23,8 @@ class HomeOne extends React.Component {
     name: null,
     number: null,
     email: null,
-    id: null,
-    timeNow: null,
-    date: new Date()
+    id: null
   };
-
   componentDidMount() {
     this.handleChecking();
     setTimeout(function() {
@@ -62,48 +59,27 @@ class HomeOne extends React.Component {
     this.setState({ cardDisplay: newVal });
   };
   handleChecking = () => {
-    fetch("http://167.71.44.156:3001/api/checking");
+    fetch("http://192.168.1.15:3001/api/checking");
   };
 
   handleSendProfile = () => {
-    console.log("send profile");
-
-    axios.post("http://167.71.44.156:3001/api/getAllData", {
-      avalibility: this.state.avalibility,
-      specialty: this.state.specialty,
-      fesition: this.state.fesition,
-      name: this.state.name,
-      number: this.state.number,
-      email: this.state.email,
-      id: this.state.id,
-      timeNow: new Date("hh.mm.ss")
-    });
-    setTimeout(function() {
-      window.location.reload();
-    }, 1500);
+    console.log(this.state);
+    axios
+      .post("http://192.168.1.15:3001/api/getAllData", {
+        avalibility: this.state.avalibility,
+        specialty: this.state.specialty,
+        fesition: this.state.fesition,
+        name: this.state.name,
+        number: this.state.number,
+        email: this.state.email,
+        id: this.state.id
+      })
+      .then(res => console.log("return from post res was", res));
   };
-
-  handlechangeDatePicker = () => {
-    console.log("change");
-  };
-
-  onChange = date => this.setState({ date });
 
   render() {
-    var styleSelect = {
-      width: "300px"
-    };
-    var styleContainer = {
-      height: "200px"
-    };
-
     const Avalibility = [
-      { value: "1", label: "מיידי" },
-      { value: "2", label: "בעוד חודש" },
-      { value: "3", label: "בעוד 3 חודשים" },
-      { value: "4", label: "בעוד 6 חודשים" },
-      { value: "5", label: "בעוד שנה" }
-
+      { value: "1", label: "immidiate within 24 hours" }
       //{ value: "2", label: "Later Future" }
     ];
     const specialty = [{ value: "Oncology", label: "אונקולוגיה" }];
@@ -135,41 +111,31 @@ class HomeOne extends React.Component {
           </div>
           <div className="container">
             <div className="row">
-              <div className="col-md-8">
-                <div className="" style={styleContainer}>
+              <div className="col-md-5">
+                <div className="home-contain">
                   <div className="">
                     {/* <h1>
                       Get<span className="f-bold"></span> Doct
                       <span className="f-bold">o</span>r
                       <span className="f-bold f-color"></span>
                     </h1> */}
-                    <p>בבקשה למלא את הפרמטרים המתאימים</p>
-
                     <p>
-                      <b>בחר תחום</b>
+                      Access to private medical services with minimum time and
+                      maximum convenience
                     </p>
+
+                    <p>Please choose your specialty</p>
                     <Select
                       options={specialty}
                       onChange={this.handleSpecialty}
-                      placeholder="בחר"
-                      width="500px"
                     />
-                    <p>
-                      <b>בחר זמינות</b>
-                    </p>
+                    <p>please select your Avalibility</p>
                     <Select
                       options={Avalibility}
                       onChange={this.handleAvalibility}
-                      placeholder="בחר"
                     />
-                    <p>
-                      <b>בחר רופא</b>
-                    </p>
-                    <Select
-                      options={fesition}
-                      onChange={this.handleFesition}
-                      placeholder="בחר"
-                    />
+                    <p>please select your fesition</p>
+                    <Select options={fesition} onChange={this.handleFesition} />
 
                     <button
                       type="submit"
@@ -177,7 +143,7 @@ class HomeOne extends React.Component {
                       style={{ margin: "20px" }}
                       onClick={() => this.handleSubmit()}
                     >
-                      הגש
+                      submit
                     </button>
                     {this.state.cardDisplay ? (
                       <div className="card">
@@ -189,13 +155,13 @@ class HomeOne extends React.Component {
                           >
                             ×
                           </a>
-                          <div className="theme-form">
+                          <form className="theme-form">
                             <div className="form-group">
                               <div className="md-fgrup-margin">
                                 <input
                                   type="text"
                                   className="form-control"
-                                  placeholder="שם מלא"
+                                  placeholder="your name"
                                   required="required"
                                   onChange={this.handleProfileName}
                                 />
@@ -203,7 +169,7 @@ class HomeOne extends React.Component {
                             </div>
                             <div className="form-group">
                               <input
-                                type="מספר טלפון"
+                                type="number"
                                 className="form-control"
                                 placeholder="phone"
                                 required="required"
@@ -214,7 +180,7 @@ class HomeOne extends React.Component {
                               <input
                                 type="email"
                                 className="form-control"
-                                placeholder="אימייל"
+                                placeholder="email address"
                                 required="required"
                                 onChange={this.handleProfileEmail}
                               />
@@ -223,7 +189,7 @@ class HomeOne extends React.Component {
                               <input
                                 type="text"
                                 className="form-control"
-                                placeholder="תעודת זהות"
+                                placeholder="your id"
                                 required="required"
                                 onChange={this.handleProfileId}
                               />
@@ -233,21 +199,19 @@ class HomeOne extends React.Component {
                               <button
                                 type="submit"
                                 className="btn btn-custom theme-color"
-                                onClickCapture={() => this.handleSendProfile()}
-                                // onClick={() => this.handleSendProfile()}
+                                onClick={this.handleSendProfile}
                               >
-                                הגש טופס
+                                submit
                               </button>
                             </div>
-                          </div>
+                          </form>
                         </div>
                       </div>
                     ) : (
                       <div></div>
                     )}
 
-                    {/* App store & goodle play Images  */}
-                    {/* <a href={null}>
+                    <a href={null}>
                       <img
                         src="assets/images/appstore.png"
                         alt="appstore"
@@ -260,7 +224,7 @@ class HomeOne extends React.Component {
                         src="assets/images/play-store.png"
                         alt="play-store"
                       />
-                    </a> */}
+                    </a>
                   </div>
                 </div>
               </div>
@@ -274,11 +238,11 @@ class HomeOne extends React.Component {
                       scale: 1
                     }}
                   >
-                    {/* <img
-                      src="assets/images/hebrew-logo.png"
+                    <img
+                      src="assets/images/mobile.png"
                       className="img-fluid"
                       alt="mobile"
-                    /> */}
+                    />
                   </Tilt>
                 </div>
               </div>
@@ -288,10 +252,10 @@ class HomeOne extends React.Component {
         {/* Home One Section End */}
 
         {/* About Component*/}
-        {/* <About /> */}
+        <About />
 
         {/*Feature Component*/}
-        {/* <Feature /> */}
+        <Feature />
 
         {/*ScreenShot Component*/}
         {/* <ScreenShot /> */}
@@ -309,7 +273,7 @@ class HomeOne extends React.Component {
         {/* <Testimonial /> */}
 
         {/*Contact Component*/}
-        {/* <Contact /> */}
+        <Contact />
 
         {/*Subscription Component*/}
         {/* <Subscribe /> */}

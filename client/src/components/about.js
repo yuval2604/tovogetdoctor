@@ -112,10 +112,15 @@ class About extends React.Component {
             <div className="col-md-7 d-medium-none">
               <div className="about-right">
                 <div className="about-phone">
-                  <img
+                  {/* <img
                     src="assets/images/aboutus.png"
                     className="img-fluid"
                     alt="aboutus"
+                  /> */}
+                  <img
+                    src="assets/images/Layer 1.png"
+                    // className=" about-circle1"
+                    style={{ width: "350px", height: "350px" }}
                   />
                 </div>
               </div>

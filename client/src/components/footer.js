@@ -41,7 +41,7 @@ class Footer extends React.Component {
                             />
                           </div>
                           <div className="footer-address">
-                            <a href={null}>052-4266552</a>
+                            <a href={null}>08-6745378</a>
                           </div>
                         </li>
                         <li>
@@ -52,7 +52,8 @@ class Footer extends React.Component {
                             />
                           </div>
                           <div className="footer-address">
-                            <a href={null}>getdoctor4u@gmail.com</a>
+                            <a href={null}>rachelr@bmc.gov.il</a>
+                            <a href={null}>shirahi@bmc.gov.il</a>
                           </div>
                         </li>
                         <li>
@@ -81,7 +82,7 @@ class Footer extends React.Component {
         </section>
 
         <div className="copyright-section index-footer">
-          <p>2019 Power By Yuval Beiser</p>
+          {/* <p>2019 Power By Yuval Beiser</p> */}
         </div>
 
         <div className="tap-top">

@@ -22,6 +22,8 @@ import Faq from "./pages/faq";
 import Download from "./pages/download";
 import ComingSoon from "./pages/coming-soon";
 import showrequests from "./pages/showrequests";
+import request from "./pages/requests";
+import tablereq from "./pages/tablereq";
 
 import registerServiceWorker from "./registerServiceWorker";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -32,11 +34,13 @@ class Root extends React.Component {
       <BrowserRouter basename={"/"}>
         <Switch>
           {/* <Route exact path={`${process.env.PUBLIC_URL}/`} component={App} /> */}
-          <Route path={`${process.env.PUBLIC_URL}/`} component={HomeOne} />
+          <Route path={`${process.env.PUBLIC_URL}/main`} component={HomeOne} />
+
           <Route
             path={`${process.env.PUBLIC_URL}/request`}
-            component={showrequests}
+            component={tablereq} // request
           />
+
           <Route
             path={`${process.env.PUBLIC_URL}/home-two`}
             component={HomeTwo}
@@ -85,7 +89,10 @@ class Root extends React.Component {
             path={`${process.env.PUBLIC_URL}/thank-you`}
             component={ThankYou}
           />
-          <Route path={`${process.env.PUBLIC_URL}/review`} component={Review} />
+          <Route
+            path={`${process.env.PUBLIC_URL}/review`}
+            component={tablereq}
+          />
           <Route
             path={`${process.env.PUBLIC_URL}/404`}
             component={PageNotFound}
