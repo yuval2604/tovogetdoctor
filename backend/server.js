@@ -4,17 +4,220 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const Data = require("./data");
+const Doctor = require("./doctor");
+
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
+
+const secret = "mysecretsshhh";
 
 const API_PORT = 3001;
 const app = express();
 const router = express.Router();
+app.use(cookieParser());
 
 mongoose.connect(getSecret("dbUri"));
 let db = mongoose.connection;
 
+router.get("/CreateNewDoctor", (req, res) => {
+  console.log("CreateNewDoctor");
+  return { success: "success", error: "error" };
+});
+
+router.post("/CreateNewDoctor", (req, res) => {
+  const doc = new Doctor();
+  const {
+    id,
+    name,
+    email,
+    phonenumber,
+    sex,
+    specialty,
+    avalibility,
+    address,
+    price,
+    password,
+  } = req.body;
+  doc.id = id;
+  doc.name = name;
+  doc.email = email;
+  doc.phonenumber = phonenumber;
+  doc.specialty = specialty;
+  doc.sex = sex;
+  doc.avalibility = avalibility;
+  doc.address = address;
+  doc.price = price;
+  doc.location_lat = 0;
+  doc.location_lng = 0;
+  doc.password = password;
+
+  Doctor.create(doc, function (err, newlyCreated) {
+    if (err) {
+      console.log(err);
+    } else {
+      //redirect back to main page
+      console.log("success");
+    }
+  });
+});
+
+router.post("/finddoctorbyname", (req, res) => {
+  const { username } = req.body;
+  Doctor.find({ username: username }, function (err, newlyCreated) {
+    if (err) {
+      console.log(err);
+    } else {
+      //redirect back to main page
+      console.log("success", newlyCreated[0]["id"]);
+      return res.json({ success: newlyCreated[0]["id"] });
+    }
+  });
+});
+router.post("/findAllRequestByDoctorName", (req, res) => {
+  const { username } = req.body;
+  console.log(username);
+  Data.find({ fesition: username }, function (err, data) {
+    if (err) {
+      console.log(err);
+    } else {
+      //redirect back to main page
+      return res.json({ data: data });
+    }
+  });
+});
+
+// PASSPORT CONFIGURATION
+app.use(
+  require("express-session")({
+    secret: "Once again Rusty wins cutest dog!",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+app.use(function (req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
+
+router.post("/register", function (req, res) {
+  const doc = new Doctor();
+  const {
+    id,
+    username,
+    email,
+    phonenumber,
+    sex,
+    specialty,
+    avalibility,
+    address,
+    price,
+    password,
+  } = req.body;
+  doc.id = id;
+  doc.username = username;
+  doc.email = email;
+  doc.phonenumber = phonenumber;
+  doc.specialty = specialty;
+  doc.sex = sex;
+  doc.avalibility = avalibility;
+  doc.address = address;
+  doc.price = price;
+  doc.location_lat = 0;
+  doc.location_lng = 0;
+  doc.password = password;
+  doc.save(function (err, doc) {
+    if (err) {
+      res.status(500).send("Error registering new user please try again.");
+    } else {
+      res.status(200).send("Welcome to the club!");
+    }
+  });
+});
+
+router.post("/authenticate", function (req, res) {
+  const { username, password } = req.body;
+
+  console.log(username, password, req.body);
+  Doctor.findOne({ username }, function (err, doc) {
+    if (err) {
+      console.error(err);
+      res.status(500).json({
+        error: "Internal error please try again",
+      });
+    } else if (!doc) {
+      console.log("Incorrect email or password");
+      res.status(401).json({
+        error: "Incorrect email or password",
+      });
+    } else {
+      doc.isCorrectPassword(password, function (err, same) {
+        if (err) {
+          console.log(err);
+          res.status(500).json({
+            error: "Internal error please try again",
+          });
+        } else if (!same) {
+          console.log("!same", same);
+          res.status(401).json({
+            error: "Incorrect email or password",
+          });
+        } else {
+          // Issue token
+          console.log("success!!!!!!");
+
+          const payload = { username };
+          const token = jwt.sign(payload, secret, {
+            expiresIn: "1h",
+          });
+          //console.log(res.cookie("token", token, { httpOnly: true }));
+          cookie = res.cookie("token", token, { httpOnly: true });
+          //return { cookie: cookie };
+          return res.json({
+            success: "1",
+            username: username,
+            password: password,
+            status: 200,
+            doc: doc,
+          });
+          //res.cookie("token", token, { httpOnly: true }).sendStatus(200);
+        }
+      });
+    }
+  });
+});
+
+const withAuth = function (req, res, next) {
+  console.log("withAuth server");
+  const token = req.cookies.token;
+  if (!token) {
+    res.status(401).send("Unauthorized: No token provided");
+  } else {
+    jwt.verify(token, secret, function (err, decoded) {
+      if (err) {
+        res.status(401).send("Unauthorized: Invalid token");
+      } else {
+        req.username = decoded.username;
+        next();
+      }
+    });
+  }
+};
+
+app.get("/api/secret", withAuth, function (req, res) {
+  res.send("The password is potato");
+});
+
+router.get("/checkToken", withAuth, function (req, res) {
+  res.sendStatus(200);
+});
+
+// PASSPORT CONFIGURATION END
+
 ("use strict");
 const nodemailer = require("nodemailer");
-
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -33,6 +236,15 @@ router.get("/checking", (req, res) => {
   //   if (err) return res.json({ success: false, error: err });
   //   console.log(data);
   // });
+});
+
+// absolutly all the Doctors
+router.get("/GetAllDoctors", (req, res) => {
+  console.log("get doctors");
+  Doctor.find((err, data) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ data: data });
+  });
 });
 
 // absolutly all the request

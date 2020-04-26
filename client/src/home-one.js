@@ -25,35 +25,35 @@ class HomeOne extends React.Component {
     email: null,
     id: null,
     timeNow: null,
-    date: new Date()
+    date: new Date(),
   };
 
   componentDidMount() {
     this.handleChecking();
-    setTimeout(function() {
+    setTimeout(function () {
       document.querySelector(".loader-wrapper").style = "display: none";
     }, 2000);
   }
 
-  handleAvalibility = event => {
+  handleAvalibility = (event) => {
     this.setState({ avalibility: event.label });
   };
-  handleSpecialty = event => {
+  handleSpecialty = (event) => {
     this.setState({ specialty: event.label });
   };
-  handleFesition = event => {
+  handleFesition = (event) => {
     this.setState({ fesition: event.label });
   };
-  handleProfileId = e => {
+  handleProfileId = (e) => {
     this.setState({ id: e.target.value });
   };
-  handleProfileName = e => {
+  handleProfileName = (e) => {
     this.setState({ name: e.target.value });
   };
-  handleProfileNumber = e => {
+  handleProfileNumber = (e) => {
     this.setState({ number: e.target.value });
   };
-  handleProfileEmail = e => {
+  handleProfileEmail = (e) => {
     this.setState({ email: e.target.value });
   };
 
@@ -76,9 +76,9 @@ class HomeOne extends React.Component {
       number: this.state.number,
       email: this.state.email,
       id: this.state.id,
-      timeNow: new Date("hh.mm.ss")
+      timeNow: new Date("hh.mm.ss"),
     });
-    setTimeout(function() {
+    setTimeout(function () {
       window.location.reload();
     }, 1500);
   };
@@ -87,14 +87,14 @@ class HomeOne extends React.Component {
     console.log("change");
   };
 
-  onChange = date => this.setState({ date });
+  onChange = (date) => this.setState({ date });
 
   render() {
     var styleSelect = {
-      width: "300px"
+      width: "300px",
     };
     var styleContainer = {
-      height: "200px"
+      height: "200px",
     };
 
     const Avalibility = [
@@ -102,14 +102,14 @@ class HomeOne extends React.Component {
       { value: "2", label: "בעוד חודש" },
       { value: "3", label: "בעוד 3 חודשים" },
       { value: "4", label: "בעוד 6 חודשים" },
-      { value: "5", label: "בעוד שנה" }
+      { value: "5", label: "בעוד שנה" },
 
       //{ value: "2", label: "Later Future" }
     ];
     const specialty = [{ value: "Oncology", label: "אונקולוגיה" }];
     const fesition = [
       { value: "1", label: "ד'ר נועם אסנה" },
-      { value: "2", label: "פרופ משה שפר" }
+      { value: "2", label: "פרופ משה שפר" },
     ];
     document.body.classList.remove("landing-page");
     document.body.classList.remove("home-style");
@@ -271,7 +271,7 @@ class HomeOne extends React.Component {
                       perspective: 110,
                       speed: 400,
                       max: 1.2,
-                      scale: 1
+                      scale: 1,
                     }}
                   >
                     {/* <img
@@ -288,7 +288,7 @@ class HomeOne extends React.Component {
         {/* Home One Section End */}
 
         {/* About Component*/}
-        {/* <About /> */}
+        <About />
 
         {/*Feature Component*/}
         {/* <Feature /> */}

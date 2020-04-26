@@ -25,6 +25,10 @@ import showrequests from "./pages/showrequests";
 import request from "./pages/requests";
 import tablereq from "./pages/tablereq";
 
+import login from "./pages/loginpage";
+import secret from "./pages/secret";
+import withAuth from "./pages/withAuth";
+
 import registerServiceWorker from "./registerServiceWorker";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
@@ -105,6 +109,11 @@ class Root extends React.Component {
           <Route
             path={`${process.env.PUBLIC_URL}/coming-soon`}
             component={ComingSoon}
+          />
+          <Route path={`${process.env.PUBLIC_URL}/login`} component={login} />
+          <Route
+            path={`${process.env.PUBLIC_URL}/secret`}
+            component={withAuth(secret)}
           />
           <Route component={NoMatch} />
         </Switch>
