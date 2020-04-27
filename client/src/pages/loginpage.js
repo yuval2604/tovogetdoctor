@@ -19,7 +19,7 @@ export default class Login extends Component {
   onSubmit = (event) => {
     console.log("on submit", this.state);
     event.preventDefault();
-    fetch("http://192.168.1.18:3001/api/authenticate", {
+    fetch("http://167.71.44.156:3001/api/authenticate", {
       method: "POST",
       body: JSON.stringify(this.state),
       headers: {

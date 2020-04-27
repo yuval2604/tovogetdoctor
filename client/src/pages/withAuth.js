@@ -14,7 +14,7 @@ export default function withAuth(ComponentToProtect) {
     componentDidMount() {
       console.log("with auth page");
       console.log("checkToken");
-      fetch("/api/checkToken")
+      fetch("http://167.71.44.156:3001/api/checkToken")
         .then((res) => {
           console.log("inside check token", res);
           if (res.status === 200) {

@@ -41,7 +41,7 @@ export default class Secret extends Component {
       price: this.props["location"]["state"]["data"]["doc"]["price"],
       password: this.props["location"]["state"]["data"]["password"],
     });
-    fetch("/api/secret")
+    fetch("http://167.71.44.156:3000/api/secret")
       .then((res) => res.json())
       .then((res) =>
         this.setState({
@@ -50,7 +50,7 @@ export default class Secret extends Component {
       );
 
     axios
-      .post("http://192.168.1.18:3001/api/findAllRequestByDoctorName", {
+      .post("http://167.71.44.156:3001/api/findAllRequestByDoctorName", {
         username: this.props["location"]["state"]["data"]["doc"]["username"],
       })
       .then((data) =>
