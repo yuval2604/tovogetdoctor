@@ -108,7 +108,7 @@ export default class Secret extends Component {
 
   render() {
     var style = {
-      "overflow-x": "auto",
+      overflow: "auto",
       "min-width": "initial",
     };
     console.log("b", this.state.data["0"] ? true : false);

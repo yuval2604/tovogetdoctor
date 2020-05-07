@@ -174,7 +174,7 @@ router.post("/authenticate", function (req, res) {
           });
           //console.log(res.cookie("token", token, { httpOnly: true }));
           cookie = res.cookie("token", token, { httpOnly: true });
-
+          //res.cookie("token", token, { httpOnly: true }).sendStatus(200);
           //return { cookie: cookie };
           return res.json({
             success: "1",

@@ -29,7 +29,7 @@ export default class Login extends Component {
       .then((data) => data.json())
       .then((res) => {
         console.log(res);
-        if (res.status === 200) {
+        if (res["status"] === 200) {
           console.log("status is 200 redirect");
           this.props.history.push({
             pathname: "/secret",
