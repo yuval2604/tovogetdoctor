@@ -45,7 +45,7 @@ class Root extends React.Component {
             component={tablereq} // request
           />
 
-          <Route
+          {/* <Route
             path={`${process.env.PUBLIC_URL}/home-two`}
             component={HomeTwo}
           />
@@ -76,7 +76,7 @@ class Root extends React.Component {
           <Route
             path={`${process.env.PUBLIC_URL}/blog-rightside`}
             component={BlogRightside}
-          />
+          /> */}
           <Route
             path={`${process.env.PUBLIC_URL}/sign-in`}
             component={SignIn}

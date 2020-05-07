@@ -291,7 +291,7 @@ class HomeOne extends React.Component {
         <About />
 
         {/*Feature Component*/}
-        {/* <Feature /> */}
+        <Feature />
 
         {/*ScreenShot Component*/}
         {/* <ScreenShot /> */}
@@ -308,14 +308,14 @@ class HomeOne extends React.Component {
         {/*Testimonial Component*/}
         {/* <Testimonial /> */}
 
-        {/*Contact Component*/}
-        {/* <Contact /> */}
-
         {/*Subscription Component*/}
         {/* <Subscribe /> */}
 
         {/*Footer Component*/}
         <Footer />
+
+        {/*Contact Component*/}
+        <Contact />
       </div>
     );
   }

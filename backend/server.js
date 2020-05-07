@@ -240,7 +240,7 @@ router.get("/checking", (req, res) => {
 });
 
 // absolutly all the Doctors
-router.get("/GetAllDoctors", (req, res) => {
+router.get("/ ", (req, res) => {
   console.log("get doctors");
   Doctor.find((err, data) => {
     if (err) return res.json({ success: false, error: err });
