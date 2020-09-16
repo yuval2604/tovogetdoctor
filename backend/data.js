@@ -12,7 +12,7 @@ const DataSchema = new Schema(
     fesition: String,
     time: String, // represent the time the secretary set
     timeOfPatiant: String, // time the patiant send request
-    timeOfsecretarySet: String // time the secretary set the time
+    timeOfsecretarySet: String, // time the secretary set the time
   }
   // { timestamps: true }
 );
