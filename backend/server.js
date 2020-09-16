@@ -240,7 +240,7 @@ router.get("/checking", (req, res) => {
 });
 
 // absolutly all the Doctors
-router.get("/ ", (req, res) => {
+router.get("/GetAllDoctors", (req, res) => {
   console.log("get doctors");
   Doctor.find((err, data) => {
     if (err) return res.json({ success: false, error: err });
@@ -419,13 +419,14 @@ function sendsms(Number, text) {
   // Your Account Sid and Auth Token from twilio.com/console
   // DANGER! This is insecure. See http://twil.io/secure
   const accountSid = "AC6c2ea7a22f9a17358b5d01363f710cd1";
-  const authToken = "d226c945bf682ad113e54c2bbdaba107";
+  const authToken = "d2b53ae381892ac9be8470bc8ea5dd39";
   const client = require("twilio")(accountSid, authToken);
   number = "+972" + Number.substring(1);
   client.messages
     .create({
       body: text,
       from: "+12029292192",
+
       to: number,
       // to: "+972524266552"
     })
