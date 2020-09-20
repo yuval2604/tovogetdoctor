@@ -5,7 +5,6 @@ const bodyParser = require("body-parser");
 const logger = require("morgan");
 const Data = require("./data");
 const Doctor = require("./doctor");
-const bcrypt = require("bcrypt");
 
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
